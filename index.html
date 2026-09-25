@@ -72,7 +72,7 @@
   .person .name { font-weight: 700; font-size: 17px; line-height: 1.3; margin-bottom: 4px; position: relative; }
   /* original logos, uncropped: each is centred in the same 64px row; white padding blends into the page */
   .person .logos { height: 64px; display: flex; align-items: center; justify-content: center; }
-  .person .logo { display: block; width: auto; max-width: 100%; mix-blend-mode: multiply; }
+  .person .logo { display: block; width: auto; max-width: 100%; object-fit: contain; mix-blend-mode: multiply; }   /* scale only, never crop */
   .person .logo.csail { height: 44px; }
   .person .logo.cmu { height: 56px; }
   .person .logo.ttic { height: 44px; }
