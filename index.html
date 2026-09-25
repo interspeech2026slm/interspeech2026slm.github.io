@@ -69,11 +69,14 @@
   .person { text-align: center; display: flex; flex-direction: column; align-items: center; }
   .person .photo { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; display: block;
     margin: 0 0 14px; background: var(--lav); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line); }
-  .person .name { font-weight: 700; font-size: 17px; line-height: 1.3; margin-bottom: 10px; }
-  /* logo heights follow their relative sizes on the Speakers slide */
-  .person .logo { display: block; width: auto; height: 38px; }
-  .person .logo.cmu { height: 40px; }
-  .person .logo.ntu_wide { height: 28px; margin-top: 5px; }
+  .person .name { font-weight: 700; font-size: 17px; line-height: 1.3; margin-bottom: 4px; position: relative; }
+  /* original logos, uncropped: each is centred in the same 64px row; white padding blends into the page */
+  .person .logos { height: 64px; display: flex; align-items: center; justify-content: center; }
+  .person .logo { display: block; width: auto; max-width: 100%; mix-blend-mode: multiply; }
+  .person .logo.csail { height: 44px; }
+  .person .logo.cmu { height: 56px; }
+  .person .logo.ttic { height: 44px; }
+  .person .logo.ntu_wide { height: 104px; max-width: none; }   /* content is the middle 38% of the file */
 
   /* survey */
   .survey { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
@@ -107,6 +110,8 @@
     .survey .cover { max-width: 200px; }
     .people { grid-template-columns: repeat(2, 1fr); gap: 30px 14px; }
     .person .photo { width: 112px; height: 112px; }
+    .person .logo.ntu_wide { height: 80px; }   /* 153px wide: fits a half-width column on a 375px phone */
+    .person .logo.ttic { height: 38px; }
   }
 </style>
 </head>
@@ -159,28 +164,28 @@
     <div class="people">
       <div class="person"><img class="photo" src="assets/people/kai-wei-chang.jpg" alt="Kai-Wei Chang" loading="lazy">
         <div class="name">Kai-Wei Chang</div>
-        <img class="logo csail" src="assets/logos/csail.png" alt="MIT CSAIL" title="MIT CSAIL" loading="lazy"></div>
+        <span class="logos"><img class="logo csail" src="assets/logos/csail.png" alt="MIT CSAIL" title="MIT CSAIL" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/chung-ming-chien.jpg" alt="Chung-Ming Chien" loading="lazy">
         <div class="name">Chung-Ming Chien</div>
-        <img class="logo ttic_mark" src="assets/logos/ttic_mark.png" alt="Toyota Technological Institute at Chicago" title="Toyota Technological Institute at Chicago" loading="lazy"></div>
+        <span class="logos"><img class="logo ttic" src="assets/logos/ttic.jpg" alt="Toyota Technological Institute at Chicago" title="Toyota Technological Institute at Chicago" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/shinji-watanabe.jpg" alt="Shinji Watanabe" loading="lazy">
         <div class="name">Shinji Watanabe</div>
-        <img class="logo cmu" src="assets/logos/cmu.png" alt="Carnegie Mellon University" title="Carnegie Mellon University" loading="lazy"></div>
+        <span class="logos"><img class="logo cmu" src="assets/logos/cmu.png" alt="Carnegie Mellon University" title="Carnegie Mellon University" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/ke-han-lu.jpg" alt="Ke-Han Lu" loading="lazy">
         <div class="name">Ke-Han Lu</div>
-        <img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></div>
+        <span class="logos"><img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/chih-kai-yang.jpg" alt="Chih-Kai Yang" loading="lazy">
         <div class="name">Chih-Kai Yang</div>
-        <img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></div>
+        <span class="logos"><img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/siddhant-arora.jpg" alt="Siddhant Arora" loading="lazy">
         <div class="name">Siddhant Arora</div>
-        <img class="logo cmu" src="assets/logos/cmu.png" alt="Carnegie Mellon University" title="Carnegie Mellon University" loading="lazy"></div>
+        <span class="logos"><img class="logo cmu" src="assets/logos/cmu.png" alt="Carnegie Mellon University" title="Carnegie Mellon University" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/hung-yi-lee.jpg" alt="Hung-yi Lee" loading="lazy">
         <div class="name">Hung-yi Lee</div>
-        <img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></div>
+        <span class="logos"><img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></span></div>
       <div class="person"><img class="photo" src="assets/people/karen-livescu.jpg" alt="Karen Livescu" loading="lazy">
         <div class="name">Karen Livescu</div>
-        <img class="logo ttic_mark" src="assets/logos/ttic_mark.png" alt="Toyota Technological Institute at Chicago" title="Toyota Technological Institute at Chicago" loading="lazy"></div>
+        <span class="logos"><img class="logo ttic" src="assets/logos/ttic.jpg" alt="Toyota Technological Institute at Chicago" title="Toyota Technological Institute at Chicago" loading="lazy"></span></div>
     </div>
   </div>
 </section>
