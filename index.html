@@ -52,9 +52,9 @@
 
   /* sections */
   section { padding: 64px 0; border-bottom: 1px solid var(--line); }
-  h2 { font-size: 30px; letter-spacing: -.01em; margin: 6px 0 22px; line-height: 1.2; }
-  .lead { font-size: 18px; color: #333; max-width: 68ch; }
-  .lead p { margin: 0 0 14px; }
+  section:last-of-type { border-bottom: none; padding-bottom: 88px; }
+  h2 { font-size: 30px; letter-spacing: -.01em; margin: 0 0 24px; line-height: 1.2; }
+  .intro { color: var(--muted); margin: -12px 0 24px; }
 
   /* program */
   .program { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr;
@@ -65,13 +65,15 @@
   .program .s { color: var(--muted); font-size: 15px; }
 
   /* people */
-  .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 30px 22px; }
-  .person { text-align: center; }
-  .person img, .person .avatar { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; display: block;
-    margin: 0 auto 14px; background: var(--lav); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line); }
-  .person .avatar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 38px; color: var(--red); }
-  .person .name { font-weight: 700; font-size: 17px; line-height: 1.3; }
-  .person .role { color: var(--muted); font-size: 14.5px; line-height: 1.4; margin-top: 3px; }
+  .people { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 22px; }
+  .person { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .person .photo { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; display: block;
+    margin: 0 0 14px; background: var(--lav); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line); }
+  .person .name { font-weight: 700; font-size: 17px; line-height: 1.3; margin-bottom: 10px; }
+  /* logo heights follow their relative sizes on the Speakers slide */
+  .person .logo { display: block; width: auto; height: 38px; }
+  .person .logo.cmu { height: 40px; }
+  .person .logo.ntu_wide { height: 28px; margin-top: 5px; }
 
   /* survey */
   .survey { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
@@ -82,6 +84,9 @@
   .survey > * { min-width: 0; }   /* let the BibTeX block scroll instead of widening the page */
   .survey h3 { font-size: 22px; line-height: 1.3; margin: 0 0 10px; }
   .survey .authors { color: #333; margin: 0 0 6px; }
+  .survey .authors sup { color: var(--red); font-weight: 700; margin-left: 1px; }
+  .survey .marks { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+  .survey .marks sup { color: var(--red); font-weight: 700; }
   .survey .venue { color: var(--muted); margin: 0 0 20px; }
   .survey .btns .btn { padding: 9px 16px; font-size: 15px; }
   .bib { position: relative; margin-top: 22px; }
@@ -91,9 +96,6 @@
     border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
   .bib button:hover { border-color: var(--red); color: var(--red); }
 
-  footer { padding: 36px 0 48px; color: var(--muted); font-size: 15px; }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
-  footer a { color: var(--ink); }
 
   @media (max-width: 760px) {
     body { font-size: 16px; }
@@ -103,8 +105,8 @@
     .program { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
     .survey { grid-template-columns: 1fr; gap: 24px; }
     .survey .cover { max-width: 200px; }
-    .people { grid-template-columns: repeat(2, 1fr); gap: 26px 14px; }
-    .person img, .person .avatar { width: 112px; height: 112px; }
+    .people { grid-template-columns: repeat(2, 1fr); gap: 30px 14px; }
+    .person .photo { width: 112px; height: 112px; }
   }
 </style>
 </head>
@@ -114,7 +116,7 @@
   <div class="wrap">
     <a class="brand" href="#top">SLM Tutorial <span>·</span> Interspeech 2026</a>
     <div class="links">
-      <a href="#about">About</a><a href="#program">Program</a><a href="#speakers">Speakers</a><a href="#survey">Survey paper</a>
+      <a href="#program">Program</a><a href="#speakers">Speakers</a><a href="#survey">Survey paper</a>
     </div>
   </div>
 </nav>
@@ -134,28 +136,9 @@
   </div>
 </header>
 
-<section id="about">
-  <div class="wrap">
-    <div class="kicker">About</div>
-    <h2>From task-specific systems to general spoken language models</h2>
-    <div class="lead">
-      <p>The field of speech processing is undergoing a paradigm shift from task-specific systems toward general spoken
-        language models (SLMs) capable of performing diverse speech tasks through natural language instructions or direct
-        conversation. New modeling paradigms, full-duplex interaction and real-world applications have redefined the scope
-        of modern speech systems, while learning under low-resource conditions and avoiding catastrophic forgetting have
-        become central challenges.</p>
-      <p>This tutorial presents a structured overview of the core design principles, recent advances and open challenges of
-        general spoken language models. It covers how speech understanding, generation and reasoning can be integrated
-        within unified systems, and includes two hands-on sessions: training SLMs while mitigating catastrophic forgetting,
-        and editing auditory knowledge in SLMs without retraining.</p>
-    </div>
-  </div>
-</section>
-
 <section id="program">
   <div class="wrap">
-    <div class="kicker">Program</div>
-    <h2>Nine parts, one morning</h2>
+    <h2>Program</h2>
     <ol class="program">
       <li><span class="n">01</span><div><div class="t">Introduction</div><div class="s">Kai-Wei Chang</div></div></li>
       <li><span class="n">02</span><div><div class="t">Speech representation</div><div class="s">Chung-Ming Chien</div></div></li>
@@ -172,47 +155,50 @@
 
 <section id="speakers">
   <div class="wrap">
-    <div class="kicker">Organizers</div>
     <h2>Speakers</h2>
     <div class="people">
-      <div class="person"><img src="assets/people/karen-livescu.jpg" alt="Karen Livescu" loading="lazy">
-        <div class="name">Karen Livescu</div><div class="role">Professor<br>Toyota Technological Institute at Chicago</div></div>
-      <div class="person"><img src="assets/people/shinji-watanabe.jpg" alt="Shinji Watanabe" loading="lazy">
-        <div class="name">Shinji Watanabe</div><div class="role">Associate Professor<br>Carnegie Mellon University</div></div>
-      <div class="person"><img src="assets/people/hung-yi-lee.jpg" alt="Hung-yi Lee" loading="lazy">
-        <div class="name">Hung-yi Lee</div><div class="role">Professor<br>National Taiwan University</div></div>
-      <div class="person"><div class="avatar" aria-hidden="true">YA</div>
-        <div class="name">Yossi Adi</div><div class="role">Assistant Professor<br>The Hebrew University of Jerusalem</div></div>
-      <div class="person"><img src="assets/people/chung-ming-chien.jpg" alt="Chung-Ming Chien" loading="lazy">
-        <div class="name">Chung-Ming Chien</div><div class="role">Ph.D. Student<br>Toyota Technological Institute at Chicago</div></div>
-      <div class="person"><img src="assets/people/siddhant-arora.jpg" alt="Siddhant Arora" loading="lazy">
-        <div class="name">Siddhant Arora</div><div class="role">Ph.D. Student<br>Carnegie Mellon University</div></div>
-      <div class="person"><img src="assets/people/ke-han-lu.jpg" alt="Ke-Han Lu" loading="lazy">
-        <div class="name">Ke-Han Lu</div><div class="role">Ph.D. Student<br>National Taiwan University</div></div>
-      <div class="person"><img src="assets/people/chih-kai-yang.jpg" alt="Chih-Kai Yang" loading="lazy">
-        <div class="name">Chih-Kai Yang</div><div class="role">Ph.D. Student<br>National Taiwan University</div></div>
-      <div class="person"><img src="assets/people/kai-wei-chang.jpg" alt="Kai-Wei Chang" loading="lazy">
-        <div class="name">Kai-Wei Chang</div><div class="role">Postdoctoral Fellow<br>MIT CSAIL</div></div>
+      <div class="person"><img class="photo" src="assets/people/kai-wei-chang.jpg" alt="Kai-Wei Chang" loading="lazy">
+        <div class="name">Kai-Wei Chang</div>
+        <img class="logo csail" src="assets/logos/csail.png" alt="MIT CSAIL" title="MIT CSAIL" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/chung-ming-chien.jpg" alt="Chung-Ming Chien" loading="lazy">
+        <div class="name">Chung-Ming Chien</div>
+        <img class="logo ttic_mark" src="assets/logos/ttic_mark.png" alt="Toyota Technological Institute at Chicago" title="Toyota Technological Institute at Chicago" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/shinji-watanabe.jpg" alt="Shinji Watanabe" loading="lazy">
+        <div class="name">Shinji Watanabe</div>
+        <img class="logo cmu" src="assets/logos/cmu.png" alt="Carnegie Mellon University" title="Carnegie Mellon University" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/ke-han-lu.jpg" alt="Ke-Han Lu" loading="lazy">
+        <div class="name">Ke-Han Lu</div>
+        <img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/chih-kai-yang.jpg" alt="Chih-Kai Yang" loading="lazy">
+        <div class="name">Chih-Kai Yang</div>
+        <img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/siddhant-arora.jpg" alt="Siddhant Arora" loading="lazy">
+        <div class="name">Siddhant Arora</div>
+        <img class="logo cmu" src="assets/logos/cmu.png" alt="Carnegie Mellon University" title="Carnegie Mellon University" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/hung-yi-lee.jpg" alt="Hung-yi Lee" loading="lazy">
+        <div class="name">Hung-yi Lee</div>
+        <img class="logo ntu_wide" src="assets/logos/ntu_wide.png" alt="National Taiwan University" title="National Taiwan University" loading="lazy"></div>
+      <div class="person"><img class="photo" src="assets/people/karen-livescu.jpg" alt="Karen Livescu" loading="lazy">
+        <div class="name">Karen Livescu</div>
+        <img class="logo ttic_mark" src="assets/logos/ttic_mark.png" alt="Toyota Technological Institute at Chicago" title="Toyota Technological Institute at Chicago" loading="lazy"></div>
     </div>
   </div>
 </section>
 
 <section id="survey">
   <div class="wrap">
-    <div class="kicker">Survey paper</div>
-    <h2>The tutorial is based on our survey</h2>
+    <h2>Survey paper</h2>
+    <p class="intro">The tutorial is based on our survey.</p>
     <div class="survey">
       <a class="cover" href="https://arxiv.org/abs/2504.08528" aria-label="Open the survey on arXiv">
         <img src="assets/survey-p1.jpg" alt="First page of the survey paper"></a>
       <div>
         <h3>On The Landscape of Spoken Language Models: A Comprehensive Survey</h3>
-        <p class="authors">Siddhant Arora, Kai-Wei Chang, Chung-Ming Chien, Yifan Peng, Haibin Wu, Yossi Adi,
-          Emmanuel Dupoux, Hung-yi Lee, Karen Livescu, Shinji Watanabe</p>
+        <p class="authors">Siddhant Arora<sup>*</sup>, Kai-Wei Chang<sup>*</sup>, Chung-Ming Chien<sup>*</sup>, Yifan Peng<sup>*</sup>, Haibin Wu<sup>*</sup>, Yossi Adi<sup>†</sup>, Emmanuel Dupoux<sup>†</sup>, Hung-yi Lee<sup>†</sup>, Karen Livescu<sup>†</sup>, Shinji Watanabe<sup>†</sup></p>
+        <p class="marks"><sup>*</sup> Co-first authors &nbsp;·&nbsp; <sup>†</sup> Co-last authors &nbsp;(alphabetical within each group)</p>
         <p class="venue">Transactions on Machine Learning Research (TMLR), 2025</p>
         <div class="btns">
           <a class="btn primary" href="https://arxiv.org/abs/2504.08528">arXiv</a>
-          <a class="btn ghost" href="https://arxiv.org/pdf/2504.08528">PDF</a>
-          <a class="btn ghost" href="https://openreview.net/forum?id=BvxaP3sVbA">OpenReview</a>
         </div>
         <div class="bib">
           <button type="button" id="copy">Copy BibTeX</button>
@@ -225,20 +211,13 @@
              and Livescu, Karen and Watanabe, Shinji},
   journal = {Transactions on Machine Learning Research},
   year    = {2025},
-  url     = {https://openreview.net/forum?id=BvxaP3sVbA}
+  url     = {https://arxiv.org/abs/2504.08528}
 }</pre>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<footer>
-  <div class="wrap">
-    <span>Questions: Kai-Wei Chang · <a href="mailto:kwchang@mit.edu">kwchang@mit.edu</a></span>
-    <span><a href="https://github.com/interspeech2026slm">github.com/interspeech2026slm</a></span>
-  </div>
-</footer>
 
 <script>
   document.getElementById("copy").addEventListener("click", async (e) => {
