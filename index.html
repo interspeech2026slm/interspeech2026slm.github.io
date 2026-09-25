@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the Landscape of Spoken Language Models · Interspeech 2026 Tutorial</title>
+<meta name="description" content="Interspeech 2026 tutorial on spoken language models: design principles, recent advances, open challenges, and two hands-on sessions. Sunday 27 September 2026, ICC Sydney.">
+<meta property="og:title" content="On the Landscape of Spoken Language Models · Interspeech 2026 Tutorial">
+<meta property="og:description" content="Sunday 27 September 2026 · Morning session · ICC Sydney. Based on our TMLR survey of spoken language models.">
+<meta property="og:image" content="https://interspeech2026slm.github.io/assets/survey-p1.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1d1d1f; --muted: #5f6368; --faint: #8a8f98; --line: #e6e6e9;
+    --red: #cc0000; --lav: #fcebe3; --pink: #f4ccccff; --blue: #cfe2f3; --bg: #ffffff; --soft: #fafafa;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+  nav .brand { font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
+  nav .brand span { color: var(--red); }
+  nav .links { display: flex; gap: 22px; font-size: 15px; }
+  nav .links a { text-decoration: none; color: var(--muted); }
+  nav .links a:hover { color: var(--red); }
+
+  /* hero */
+  header.hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, #fff 0%, #fff 55%, var(--lav) 100%); }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  h1 { font-size: clamp(34px, 5.6vw, 58px); line-height: 1.06; letter-spacing: -.02em; margin: 14px 0 20px; font-weight: 700; max-width: 16ch; }
+  .when { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 17px; color: var(--muted); margin-bottom: 30px; }
+  .when b { color: var(--ink); font-weight: 600; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600;
+    font-size: 16px; text-decoration: none; border: 1.5px solid var(--ink); transition: transform .12s ease, background .12s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn.primary:hover { background: #b30000; }
+  .btn.ghost { background: #fff; }
+
+  /* sections */
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 30px; letter-spacing: -.01em; margin: 6px 0 22px; line-height: 1.2; }
+  .lead { font-size: 18px; color: #333; max-width: 68ch; }
+  .lead p { margin: 0 0 14px; }
+
+  /* program */
+  .program { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, auto); grid-auto-flow: column; gap: 0 40px; }
+  .program li { display: grid; grid-template-columns: 38px 1fr; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .program .n { font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; }
+  .program .t { font-weight: 600; }
+  .program .s { color: var(--muted); font-size: 15px; }
+
+  /* people */
+  .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 30px 22px; }
+  .person { text-align: center; }
+  .person img, .person .avatar { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; display: block;
+    margin: 0 auto 14px; background: var(--lav); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line); }
+  .person .avatar { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 38px; color: var(--red); }
+  .person .name { font-weight: 700; font-size: 17px; line-height: 1.3; }
+  .person .role { color: var(--muted); font-size: 14.5px; line-height: 1.4; margin-top: 3px; }
+
+  /* survey */
+  .survey { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+  .survey .cover { display: block; border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08); transition: transform .15s ease; }
+  .survey .cover:hover { transform: translateY(-2px); }
+  .survey .cover img { width: 100%; display: block; }
+  .survey > * { min-width: 0; }   /* let the BibTeX block scroll instead of widening the page */
+  .survey h3 { font-size: 22px; line-height: 1.3; margin: 0 0 10px; }
+  .survey .authors { color: #333; margin: 0 0 6px; }
+  .survey .venue { color: var(--muted); margin: 0 0 20px; }
+  .survey .btns .btn { padding: 9px 16px; font-size: 15px; }
+  .bib { position: relative; margin-top: 22px; }
+  .bib pre { margin: 0; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px;
+    font: 13px/1.55 "SF Mono", Menlo, Consolas, monospace; overflow-x: auto; white-space: pre; }
+  .bib button { position: absolute; top: 10px; right: 10px; font: 600 13px "Figtree", sans-serif; padding: 6px 12px;
+    border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+  .bib button:hover { border-color: var(--red); color: var(--red); }
+
+  footer { padding: 36px 0 48px; color: var(--muted); font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer a { color: var(--ink); }
+
+  @media (max-width: 760px) {
+    body { font-size: 16px; }
+    nav .links { display: none; }
+    header.hero { padding: 48px 0 40px; }
+    section { padding: 48px 0; }
+    .program { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
+    .survey { grid-template-columns: 1fr; gap: 24px; }
+    .survey .cover { max-width: 200px; }
+    .people { grid-template-columns: repeat(2, 1fr); gap: 26px 14px; }
+    .person img, .person .avatar { width: 112px; height: 112px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">SLM Tutorial <span>·</span> Interspeech 2026</a>
+    <div class="links">
+      <a href="#about">About</a><a href="#program">Program</a><a href="#speakers">Speakers</a><a href="#survey">Survey paper</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">Interspeech 2026 Tutorial</div>
+    <h1>On the Landscape of Spoken Language Models</h1>
+    <div class="when">
+      <span><b>Sunday, 27 September 2026</b> · Morning session</span>
+      <span>International Convention Centre Sydney</span>
+    </div>
+    <div class="btns">
+      <a class="btn primary" href="https://arxiv.org/abs/2504.08528">Read the survey paper</a>
+      <a class="btn ghost" href="https://interspeech2026.org/pages/program/tutorials">Interspeech 2026 tutorials</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="kicker">About</div>
+    <h2>From task-specific systems to general spoken language models</h2>
+    <div class="lead">
+      <p>The field of speech processing is undergoing a paradigm shift from task-specific systems toward general spoken
+        language models (SLMs) capable of performing diverse speech tasks through natural language instructions or direct
+        conversation. New modeling paradigms, full-duplex interaction and real-world applications have redefined the scope
+        of modern speech systems, while learning under low-resource conditions and avoiding catastrophic forgetting have
+        become central challenges.</p>
+      <p>This tutorial presents a structured overview of the core design principles, recent advances and open challenges of
+        general spoken language models. It covers how speech understanding, generation and reasoning can be integrated
+        within unified systems, and includes two hands-on sessions: training SLMs while mitigating catastrophic forgetting,
+        and editing auditory knowledge in SLMs without retraining.</p>
+    </div>
+  </div>
+</section>
+
+<section id="program">
+  <div class="wrap">
+    <div class="kicker">Program</div>
+    <h2>Nine parts, one morning</h2>
+    <ol class="program">
+      <li><span class="n">01</span><div><div class="t">Introduction</div><div class="s">Kai-Wei Chang</div></div></li>
+      <li><span class="n">02</span><div><div class="t">Speech representation</div><div class="s">Chung-Ming Chien</div></div></li>
+      <li><span class="n">03</span><div><div class="t">Typical training</div><div class="s">Shinji Watanabe</div></div></li>
+      <li><span class="n">04</span><div><div class="t">Advanced training</div><div class="s">Kai-Wei Chang</div></div></li>
+      <li><span class="n">05</span><div><div class="t">Hands-on session</div><div class="s">Ke-Han Lu</div></div></li>
+      <li><span class="n">06</span><div><div class="t">Full-duplex spoken language models</div><div class="s">Siddhant Arora</div></div></li>
+      <li><span class="n">07</span><div><div class="t">Evaluation</div><div class="s">Hung-yi Lee</div></div></li>
+      <li><span class="n">08</span><div><div class="t">Emerging topics</div><div class="s">Chih-Kai Yang</div></div></li>
+      <li><span class="n">09</span><div><div class="t">Conclusion</div><div class="s">Karen Livescu</div></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="speakers">
+  <div class="wrap">
+    <div class="kicker">Organizers</div>
+    <h2>Speakers</h2>
+    <div class="people">
+      <div class="person"><img src="assets/people/karen-livescu.jpg" alt="Karen Livescu" loading="lazy">
+        <div class="name">Karen Livescu</div><div class="role">Professor<br>Toyota Technological Institute at Chicago</div></div>
+      <div class="person"><img src="assets/people/shinji-watanabe.jpg" alt="Shinji Watanabe" loading="lazy">
+        <div class="name">Shinji Watanabe</div><div class="role">Associate Professor<br>Carnegie Mellon University</div></div>
+      <div class="person"><img src="assets/people/hung-yi-lee.jpg" alt="Hung-yi Lee" loading="lazy">
+        <div class="name">Hung-yi Lee</div><div class="role">Professor<br>National Taiwan University</div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">YA</div>
+        <div class="name">Yossi Adi</div><div class="role">Assistant Professor<br>The Hebrew University of Jerusalem</div></div>
+      <div class="person"><img src="assets/people/chung-ming-chien.jpg" alt="Chung-Ming Chien" loading="lazy">
+        <div class="name">Chung-Ming Chien</div><div class="role">Ph.D. Student<br>Toyota Technological Institute at Chicago</div></div>
+      <div class="person"><img src="assets/people/siddhant-arora.jpg" alt="Siddhant Arora" loading="lazy">
+        <div class="name">Siddhant Arora</div><div class="role">Ph.D. Student<br>Carnegie Mellon University</div></div>
+      <div class="person"><img src="assets/people/ke-han-lu.jpg" alt="Ke-Han Lu" loading="lazy">
+        <div class="name">Ke-Han Lu</div><div class="role">Ph.D. Student<br>National Taiwan University</div></div>
+      <div class="person"><img src="assets/people/chih-kai-yang.jpg" alt="Chih-Kai Yang" loading="lazy">
+        <div class="name">Chih-Kai Yang</div><div class="role">Ph.D. Student<br>National Taiwan University</div></div>
+      <div class="person"><img src="assets/people/kai-wei-chang.jpg" alt="Kai-Wei Chang" loading="lazy">
+        <div class="name">Kai-Wei Chang</div><div class="role">Postdoctoral Fellow<br>MIT CSAIL</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="survey">
+  <div class="wrap">
+    <div class="kicker">Survey paper</div>
+    <h2>The tutorial is based on our survey</h2>
+    <div class="survey">
+      <a class="cover" href="https://arxiv.org/abs/2504.08528" aria-label="Open the survey on arXiv">
+        <img src="assets/survey-p1.jpg" alt="First page of the survey paper"></a>
+      <div>
+        <h3>On The Landscape of Spoken Language Models: A Comprehensive Survey</h3>
+        <p class="authors">Siddhant Arora, Kai-Wei Chang, Chung-Ming Chien, Yifan Peng, Haibin Wu, Yossi Adi,
+          Emmanuel Dupoux, Hung-yi Lee, Karen Livescu, Shinji Watanabe</p>
+        <p class="venue">Transactions on Machine Learning Research (TMLR), 2025</p>
+        <div class="btns">
+          <a class="btn primary" href="https://arxiv.org/abs/2504.08528">arXiv</a>
+          <a class="btn ghost" href="https://arxiv.org/pdf/2504.08528">PDF</a>
+          <a class="btn ghost" href="https://openreview.net/forum?id=BvxaP3sVbA">OpenReview</a>
+        </div>
+        <div class="bib">
+          <button type="button" id="copy">Copy BibTeX</button>
+<pre id="bibtex">@article{arora2025landscape,
+  title   = {On The Landscape of Spoken Language Models:
+             A Comprehensive Survey},
+  author  = {Arora, Siddhant and Chang, Kai-Wei and Chien, Chung-Ming
+             and Peng, Yifan and Wu, Haibin and Adi, Yossi
+             and Dupoux, Emmanuel and Lee, Hung-yi
+             and Livescu, Karen and Watanabe, Shinji},
+  journal = {Transactions on Machine Learning Research},
+  year    = {2025},
+  url     = {https://openreview.net/forum?id=BvxaP3sVbA}
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Questions: Kai-Wei Chang · <a href="mailto:kwchang@mit.edu">kwchang@mit.edu</a></span>
+    <span><a href="https://github.com/interspeech2026slm">github.com/interspeech2026slm</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("copy").addEventListener("click", async (e) => {
+    const text = document.getElementById("bibtex").innerText;
+    try { await navigator.clipboard.writeText(text); e.target.textContent = "Copied"; }
+    catch { e.target.textContent = "Select and copy"; }
+    setTimeout(() => (e.target.textContent = "Copy BibTeX"), 1800);
+  });
+</script>
+</body>
+</html>
